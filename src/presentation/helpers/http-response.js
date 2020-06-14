@@ -23,8 +23,6 @@ module.exports = class HttpResponse {
   }
 
   static ok (data) {
-    console.log('data', data)
-
     return {
       statusCode: 200,
       body: data
