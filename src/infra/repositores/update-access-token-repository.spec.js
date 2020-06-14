@@ -16,6 +16,14 @@ class UpdateAccessTokenRepository {
   }
 }
 
+const makeSut = (db) => {
+  const userModel = db.collection('users')
+  const sut = new UpdateAccessTokenRepository(userModel)
+  return {
+    userModel, sut
+  }
+}
+
 describe('UpdateAccessToken Repository', () => {
   let db
 
@@ -33,7 +41,7 @@ describe('UpdateAccessToken Repository', () => {
   })
 
   test('should update the user with the given accessToken', async () => {
-    const userModel = db.collection('users')
+    const { sut, userModel } = makeSut(db)
 
     const fakeUser = await userModel.insertOne({
       email: 'valid_email@mail.com',
@@ -43,7 +51,6 @@ describe('UpdateAccessToken Repository', () => {
       password: 'hashed_password'
     })
 
-    const sut = new UpdateAccessTokenRepository(userModel)
     await sut.update(fakeUser.ops[0]._id, 'valid_token')
     const updatedFakeUser = await userModel
       .findOne({ _id: fakeUser.ops[0]._id })
@@ -51,7 +58,9 @@ describe('UpdateAccessToken Repository', () => {
   })
 
   test('should throw if no userModel is provided', async () => {
+    const sut = new UpdateAccessTokenRepository()
     const userModel = db.collection('users')
+
     const fakeUser = await userModel.insertOne({
       email: 'valid_email@mail.com',
       name: 'any_name',
@@ -60,7 +69,6 @@ describe('UpdateAccessToken Repository', () => {
       password: 'hashed_password'
     })
 
-    const sut = new UpdateAccessTokenRepository()
     const promise = sut.update(fakeUser.ops[0]._id, 'valid_token')
     expect(promise).rejects.toThrow()
   })
