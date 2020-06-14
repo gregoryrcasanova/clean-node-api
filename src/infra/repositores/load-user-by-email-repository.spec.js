@@ -1,19 +1,5 @@
 const { MongoClient } = require('mongodb')
-
-class LoadUserByEmailRepository {
-  constructor (userModel) {
-    this.userModel = userModel
-  }
-
-  async load (email) {
-    const user = await this.userModel.findOne({ email }, {
-      projection: {
-        password: 1
-      }
-    })
-    return user
-  }
-}
+const LoadUserByEmailRepository = require('./load-user-by-email-repository')
 
 const makeSut = (db) => {
   const userModel = db.collection('users')
