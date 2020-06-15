@@ -7,22 +7,24 @@ describe('Content-Type Middleware', () => {
     app = require('../config/app')
   })
 
-  test('should return json content-type as default', async () => {
+  test('Should return json content-type as default', async () => {
     app.get('/test_content_type', (req, res) => {
       res.send('')
     })
+
     await request(app)
       .get('/test_content_type')
       .expect('content-type', /json/)
   })
 
-  test('should return xml content-type if it is forced', async () => {
-    app.get('/test_content_type_xml', (req, res) => {
+  test('Should return xml content-type if forced', async () => {
+    app.get('/test_content_type', (req, res) => {
       res.type('xml')
       res.send('')
     })
+
     await request(app)
-      .get('/test_content_type_xml')
+      .get('/test_content_type')
       .expect('content-type', /xml/)
   })
 })

@@ -3,7 +3,6 @@ const { MongoClient } = require('mongodb')
 module.exports = {
   async connect (uri) {
     this.uri = uri
-
     this.client = await MongoClient.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true

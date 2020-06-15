@@ -1,46 +1,39 @@
 {
-  "name": "nodejs-tdd-e-clean_architecture",
+  "name": "clean-node-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Construindo uma API Rest em NodeJS utilizando TDD, Clean Architecture e Design Patterns.",
+  "author": "Rodrigo Manguinho",
+  "license": "ISC",
   "main": "src/main/index.js",
   "scripts": {
-    "test": "jest --passWithNoTests --colors --noStackTrace --runInBand",
+    "start": "node src/main/index.js",
+    "test": "jest --colors --noStackTrace --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests --silent",
     "test:ci": "npm test -- --coverage --silent",
-    "start": "node src/main/index.js"
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "standard": {
     "env": [
       "jest"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gregoryrcasanova/clean-node-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gregoryrcasanova/clean-node-api/issues"
-  },
-  "homepage": "https://github.com/gregoryrcasanova/clean-node-api#readme",
   "devDependencies": {
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.9",
-    "standard": "^14.3.4"
+    "@shelf/jest-mongodb": "^1.1.3",
+    "coveralls": "^3.0.11",
+    "husky": "^4.0.0-beta.5",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.3",
+    "standard": "^14.3.1",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
-    "@shelf/jest-mongodb": "^1.1.5",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^3.0.7",
     "express": "^4.17.1",
-    "fast-glob": "^3.2.2",
+    "fast-glob": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.9",
-    "supertest": "^4.0.2",
-    "validator": "^13.1.1"
+    "mongodb": "^3.3.5",
+    "validator": "^12.1.0"
   }
 }
